@@ -56,7 +56,15 @@ let vowelBonusScorer = function (word) {
    return letterPoints;
 };
 
-let scrabbleScorer;
+let scrabbleScorer = function (word) {
+   word = word.toUpperCase()
+   let letterPoints = 0
+   for (let i = 0; i < word.length; i++) {
+      let letter = word[i].toLowerCase();
+      letterPoints = letterPoints + newPointStructure[letter];
+   }
+   return letterPoints;
+};
 
 
 //Scoring Objects
@@ -87,9 +95,19 @@ function scorerPrompt() {
    return userChoice;
 }
 
-function transform() { };
+function transform(oldPointStructure) {
+   let newPointStructure = {};
+   for (key in oldPointStructure) {
+      let letterScore = oldPointStructure[key]
+      for (let j = 0; j < letterScore.length; j++) {
+         letter = letterScore[j].toLowerCase();
+         newPointStructure[letter] = Number(key)
+      }
 
-let newPointStructure;
+   } return newPointStructure;
+};
+
+let newPointStructure = transform(oldPointStructure);
 
 function runProgram() {      //order that our page is running
    let word = initialPrompt();
